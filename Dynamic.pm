@@ -1,7 +1,7 @@
 package Class::Dynamic;
 
 use 5.006;
-our $VERSION = '1.00';
+our $VERSION = '1.01';
 
 sub UNIVERSAL::AUTOLOAD {
     no strict;
@@ -21,9 +21,8 @@ sub UNIVERSAL::AUTOLOAD {
     if (! defined &$UNIVERSAL::AUTOLOAD) { 
         require Carp; import Carp;
         return if $method eq "DESTROY";
-        carp( qq{Can't locate object method "$method" via package "$rv" 
+        croak( qq{Can't locate object method "$method" via package "$rv" 
         (perhaps you forgot to load "$rv"?)});
-        undef $@;
     } else { 
         goto &$UNIVERSAL::AUTOLOAD;
     }
